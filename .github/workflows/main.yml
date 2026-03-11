@@ -1,0 +1,12 @@
+name: My First Automation
+on: [push] # Скрипт будет запускаться каждый раз, когда ты меняешь код
+
+jobs:
+  run-shell-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Копирует твои файлы на сервер
+
+      - name: Run hello.sh
+        run: bash hello.sh # Запускает твой созданный файл
