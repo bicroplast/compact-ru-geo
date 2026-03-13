@@ -1104,8 +1104,23 @@ jobs:
               rm -f "$pattern"
           done < "/tmp/geolist_del.txt"
 
-          sed 's,.*,/include:&\\\([[:space:]].*\\|$\\\)/d,' "/tmp/geolist_del.txt" > /tmp/sed_commands.script
-          find . -type f -exec sed -i -f /tmp/sed_commands.script {} +
+          # 4. УМНАЯ ОЧИСТКА ЗАВИСИМОСТЕЙ (РЕШАЕТ ВАШУ ОШИБКУ)
+          # Составляем список всех файлов, которые реально остались в папке
+          ls -1 > /tmp/existing_files.txt
+
+          # Проходим по всем оставшимся файлам
+          for file in *; do
+              [ -f "$file" ] || continue
+              
+              # Ищем в файле все строки include:имя
+              # Если "имя" отсутствует в списке существующих файлов — удаляем эту строку
+              grep "include:" "$file" | cut -d':' -f2 | awk '{print $1}' | sort -u | while read -r included; do
+                  if ! grep -qx "$included" /tmp/existing_files.txt; then
+                      echo "Removing broken include:$included from $file"
+                      sed -i "/include:$included\([[:space:]].*\|$\)/d" "$file"
+                  fi
+              done
+          done
 
       - name: Build geosite.dat
         run: |
