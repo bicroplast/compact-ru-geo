@@ -5,7 +5,7 @@ on:
     - cron: "0 3,9,15,21 * * *"
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - "**/README.md"
 
@@ -24,7 +24,7 @@ jobs:
           echo "WIN_UPDATE=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/update.txt" >> $GITHUB_ENV
           echo "WIN_EXTRA=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/extra.txt" >> $GITHUB_ENV
           
-         shell: bash
+        shell: bash
 
       - name: Checkout runetfreedom/russia-domains-list
         uses: actions/checkout@v4
