@@ -1145,18 +1145,16 @@ jobs:
           file: ./publish/*
 
       - name: Git push assets to "release" branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd publish || exit 1
-          git init -b release
+          git init
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b release
           git add .
           git commit -m "${{ env.RELEASE_NAME }}"
-          # Используем формат URL, который гарантированно работает в Actions
-          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@://github.com{{ github.repository }}.git"
-          git push -f origin release
+          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git push -f -u origin release
           
       - name: Delete old releases
         uses: dev-drprasad/delete-older-releases@v0.3.3
