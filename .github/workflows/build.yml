@@ -59,7 +59,9 @@ jobs:
           
           rm -rf ./additional/README.md
           mv ./additional/* ./community/data/
-
+          
+          mkdir -p ./custom/publish ./publish
+          
       - name: Build Russia general blocked list
         run: |
           echo "include:antifilter-download-community" > ./community/data/ru-blocked
@@ -83,3 +85,8 @@ jobs:
           install -Dp ./custom/publish/geosite.dat ./publish/geosite.dat
           
           (cd ./publish && sha256sum geosite.dat > geosite.dat.sha256sum)
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: geosite-files
+          path: ./publish/
