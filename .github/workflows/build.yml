@@ -56,6 +56,11 @@ jobs:
           rm -rf ./additional/README.md
           mv ./additional/* ./community/data/
 
+          # КЛЮЧЕВОЙ МОМЕНТ: Удаляем из всех файлов ссылки на списки, которые мы НЕ скачали.
+          # Если файл упоминает antifilter, refilter или ads, но их нет в папке — удаляем эти строки.
+          cd ./community/data
+          grep -l "include:" * | xargs -I {} sed -i '/include:antifilter/d; /include:refilter/d; /include:category-ads/d' {}
+
       - name: Build geosite.dat file
         run: |
           cd custom || exit 1
