@@ -1,3 +1,3 @@
 # compact-ru-geo
-Geosite and GeoIP databases are limited to some basic and RU tags, without CN tags and other large data.
+Geosite и GeoIP базы вычищенные от CN и прочих лишних тегов, включая adblock.
 https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite.dat
