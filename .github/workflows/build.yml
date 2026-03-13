@@ -8,7 +8,6 @@ on:
       - main
     paths-ignore:
       - "**/README.md"
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,76 +18,46 @@ jobs:
         run: |
           echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          
-          #echo "ANTIFILTER_DOWNLOAD=https://antifilter.download/list/domains.lst" >> $GITHUB_ENV
-          #echo "ANTIFILTER_DOWNLOAD_COMMUNITY=https://community.antifilter.download/list/domains.lst" >> $GITHUB_ENV
-          #echo "REFILTER_ALL=https://raw.githubusercontent.com/1andrevich/Re-filter-lists/refs/heads/main/domains_all.lst" >> $GITHUB_ENV
-          
-          #echo "PETERLOWE_REJECT_URL=https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext" >> $GITHUB_ENV
-          #echo "ADGUARD_DNS_REJECT_URL=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt" >> $GITHUB_ENV
-          #echo "WIN_SPY=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt" >> $GITHUB_ENV
           echo "WIN_UPDATE=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/update.txt" >> $GITHUB_ENV
           echo "WIN_EXTRA=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/extra.txt" >> $GITHUB_ENV
-          
-          #echo "GFW=https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/refs/heads/release/gfw.txt" >> $GITHUB_ENV
-          #echo "GREATFIRE=https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/refs/heads/release/greatfire.txt" >> $GITHUB_ENV
         shell: bash
-
       - name: Checkout runetfreedom/russia-domains-list
         uses: actions/checkout@v4
         with:
           repository: runetfreedom/russia-domains-list
           path: additional
-
       - name: Checkout runetfreedom/domain-list-custom
         uses: actions/checkout@v4
         with:
           repository: runetfreedom/domain-list-custom
           path: custom
-
       - name: Checkout v2fly/domain-list-community
         uses: actions/checkout@v4
         with:
           repository: v2fly/domain-list-community
           path: community
-
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version-file: ./custom/go.mod
           cache-dependency-path: ./custom/go.sum
-
       - name: Get and add domain lists
         run: |          
-          #curl -sSL $ANTIFILTER_DOWNLOAD > ./antifilter-download.txt
-          #curl -sSL $ANTIFILTER_DOWNLOAD_COMMUNITY > ./antifilter-download-community.txt
-          #curl -sSL $REFILTER_ALL > ./refilter.txt
-          #curl -sSL $WIN_SPY | grep "0.0.0.0" | awk '{print $2}' > ./win-spy.txt
           curl -sSL $WIN_UPDATE | grep "0.0.0.0" | awk '{print $2}' > ./win-update.txt
           curl -sSL $WIN_EXTRA | grep "0.0.0.0" | awk '{print $2}' > ./win-extra.txt
-          
-          #curl -sSL $GFW > ./community/data/gfw.txt
-          #curl -sSL $GREATFIRE > ./community/data/greatfire.txt
-          
           cp {win-update,win-extra}.txt ./community/data/
           for f in ./community/data/*.txt; do mv "$f" "${f//.txt/}"; done
-          
           rm -rf ./additional/README.md
           mv ./additional/* ./community/data/
-
        - name: Build geosite.dat file
         run: |
           cd custom || exit 1
-          #go run ./ --exportlists=  --datname=geosite-ru-only.dat --togfwlist=ru-blocked --datapath=../community/data-ru
           go run ./ --datapath=../community/data
-
       - name: Move and zip files and generate sha256 hash
         run: |
           mkdir -p ./publish/
           install -Dp ./custom/publish/geosite.dat ./publish/geosite.dat
-  
           (cd ./publish && sha256sum geosite.dat > geosite.dat.sha256sum)
-
       - name: Release and upload assets
         uses: svenstaro/upload-release-action@v2
         with:
@@ -97,7 +66,6 @@ jobs:
           tag: ${{ env.TAG_NAME }}
           file_glob: true
           file: ./publish/*
-
       - name: Git push assets to "release" branch
         run: |
           cd publish || exit 1
@@ -109,7 +77,6 @@ jobs:
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           git push -f -u origin release
-      
       - name: Delete old releases
         uses: dev-drprasad/delete-older-releases@v0.3.3
         with:
