@@ -48,7 +48,7 @@ jobs:
 
           TARGET_DIR="./community/data"
           
-          # 2. Очистка по шаблонам (как в вашем скрипте)
+          # 2. Очистка по шаблонам
           while read -r pattern; do
               echo "Обработка шаблона: $pattern"
               (cd "$TARGET_DIR" && rm -f $pattern)
@@ -73,8 +73,8 @@ jobs:
           rm -f [0-9]*
           find . -type f -exec sed -i "/include:[0-9].*\([[:space:]].*\|$\)/d" {} +
 
-          # 4. Обработка вашего кастомного списка geolist_del.txt
-          # Создаем его прямо здесь (добавьте сюда свои домены через пробел или новую строку)
+          # 4. Обработка кастомного списка geolist_del.txt
+          # Создаем его прямо здесь
           cat > /tmp/geolist_del.txt <<EOF
           aamgame
           abc
@@ -1109,9 +1109,9 @@ jobs:
               rm -f "$pattern"
           done < "/tmp/geolist_del.txt"
 
-          # 4. УМНАЯ ОЧИСТКА ЗАВИСИМОСТЕЙ (РЕШАЕТ ВАШУ ОШИБКУ)
+          # 4. Очистка зависимостей
           # Составляем список всех файлов, которые реально остались в папке
-          ls -1 > /tmp/existing_files.txt
+          ls -1 > /tmp/geosite_tags.txt
 
           # Проходим по всем оставшимся файлам
           for file in *; do
@@ -1134,6 +1134,7 @@ jobs:
           # В репозитории v2fly результат сборки обычно называется dlc.dat
           mkdir -p ../publish
           cp dlc.dat ../publish/geosite.dat
+          cp /tmp/geosite_tags.txt ../publish/geosite_tags.txt
 
       - name: Generate Checksum
         run: |
