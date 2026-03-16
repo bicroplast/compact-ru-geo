@@ -1,0 +1,11 @@
+*-cn
+*-!cn
+*-porn
+*-ir
+*-jp
+*-entertainment
+*-scholar
+*-pt
+*-tm
+*-companies
+*-toshokan
