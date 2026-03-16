@@ -144,4 +144,4 @@ jobs:
         run: |
           gh release list --limit 100 --json tagName,createdAt \
             | jq -r 'sort_by(.createdAt) | reverse | .[3:] | .[].tagName' \
-            | xargs -I {} gh release delete {} --yes --delete-tag
+            | xargs -I {} gh release delete {} --yes --cleanup-tag
