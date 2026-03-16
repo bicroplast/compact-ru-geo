@@ -112,7 +112,7 @@ jobs:
           # Устанавливаем CLI инструмент v2fly/geoip
           go install github.com/v2fly/geoip@latest
 
-          for cfg in geoip_config.json geoip_private.json; do
+          for cfg in geoip_config.json geoip_private.json geoip_rublocked.json; do
             if [ ! -f "${GITHUB_WORKSPACE}/$cfg" ]; then
               echo "Файл $cfg не найден в репозитории!"
               exit 1
@@ -122,9 +122,11 @@ jobs:
           mkdir -p /tmp/geoip_out
           geoip -c "${GITHUB_WORKSPACE}/geoip_config.json"
           geoip -c "${GITHUB_WORKSPACE}/geoip_private.json"
+          geoip -c "${GITHUB_WORKSPACE}/geoip_rublocked.json"
 
           cp /tmp/geoip_out/geoip.dat publish/geoip.dat
           cp /tmp/geoip_out/geoip_private.dat publish/geoip_private.dat
+          cp /tmp/geoip_out/geoip_rublocked.dat publish/geoip_rublocked.dat
 
       - name: Generate Checksum
         run: |
@@ -132,6 +134,7 @@ jobs:
           sha256sum geosite.dat > geosite.dat.sha256sum
           sha256sum geoip.dat > geoip.dat.sha256sum
           sha256sum geoip_private.dat > geoip_private.dat.sha256sum
+          sha256sum geoip_rublocked.dat > geoip_rublocked.dat.sha256sum
 
       - name: Release and upload assets
         env:
