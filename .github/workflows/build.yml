@@ -27,6 +27,8 @@ jobs:
           echo "RELEASE_NAME=Released on $(TZ='Europe/Moscow' date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "WIN_UPDATE=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/update.txt" >> $GITHUB_ENV
           echo "WIN_EXTRA=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/extra.txt" >> $GITHUB_ENV
+          echo "ANTIFILTER_DOWNLOAD_COMMUNITY="https://community.antifilter.download/list/domains.lst" >> $GITHUB_ENV
+          echo "REFILTER_ALL="https://raw.githubusercontent.com/1andrevich/Re-filter-lists/refs/heads/main/domains_all.lst" >> $GITHUB_ENV
         shell: bash
 
       - name: Clone community list
@@ -103,6 +105,16 @@ jobs:
           # В репозитории v2fly результат сборки называется dlc.dat
           cp dlc.dat ../publish/geosite.dat
           cp /tmp/geosite_tags.txt ../publish/geosite_tags.txt
+
+      - name: Build geosite_ru.dat
+        run: |
+          # Скачивание списков
+          curl -sSLf $ANTIFILTER_DOWNLOAD_COMMUNITY > /tmp/antifilter-download-community.txt
+          curl -sSLf $REFILTER_ALL > /tmp/refilter.txt
+          echo "Building RU lists..."
+          cat /tmp/antifilter-download-community.txt /tmp/refilter.txt | sort --ignore-case -u > ./data/ru-blocked
+          go run ./
+          cp dlc.dat ../publish/geosite_ru.dat
 
       - name: Build geoip.dat
         run: |
