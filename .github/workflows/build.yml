@@ -104,6 +104,73 @@ jobs:
           cp dlc.dat ../publish/geosite.dat
           cp /tmp/geosite_tags.txt ../publish/geosite_tags.txt
 
+      - name: Build geoip.dat
+        run: |
+          # Скачиваем исходный geoip.dat
+          curl -sSLf https://raw.githubusercontent.com/runetfreedom/russia-blocked-geoip/release/geoip.dat -o /tmp/geoip_source.dat
+
+          # Устанавливаем CLI инструмент v2fly/geoip
+          go install github.com/v2fly/geoip@latest
+
+          # Создаём config.json-ы для извлечения нужных тегов
+          cat > /tmp/geoip_config.json << 'EOF'
+          {
+            "input": [
+              {
+                "type": "v2rayGeoIPDat",
+                "action": "add",
+                "args": {
+                  "uri": "/tmp/geoip_source.dat",
+                  "wantedList": ["private", "ru", "telegram"],
+                  "onlyIPType": "ipv4"
+                }
+              }
+            ],
+            "output": [
+              {
+                "type": "v2rayGeoIPDat",
+                "action": "output",
+                "args": {
+                  "outputDir": "/tmp/geoip_out",
+                  "outputName": "geoip.dat"
+                }
+              }
+            ]
+          }
+          EOF
+          cat > /tmp/geoip_private.json << 'EOF'
+          {
+            "input": [
+              {
+                "type": "v2rayGeoIPDat",
+                "action": "add",
+                "args": {
+                  "uri": "/tmp/geoip_source.dat",
+                  "wantedList": ["private"],
+                  "onlyIPType": "ipv4"
+                }
+              }
+            ],
+            "output": [
+              {
+                "type": "v2rayGeoIPDat",
+                "action": "output",
+                "args": {
+                  "outputDir": "/tmp/geoip_out",
+                  "outputName": "geoip_private.dat"
+                }
+              }
+            ]
+          }
+          EOF
+
+          mkdir -p /tmp/geoip_out
+          geoip -c /tmp/geoip_config.json
+          geoip -c /tmp/geoip_private.json
+
+          cp /tmp/geoip_out/geoip.dat publish/geoip.dat
+          cp /tmp/geoip_out/geoip_private.dat publish/geoip_private.dat
+
       - name: Generate Checksum
         run: |
           cd publish
