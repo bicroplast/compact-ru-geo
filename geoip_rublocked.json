@@ -1,0 +1,23 @@
+{
+  "input": [
+    {
+      "type": "v2rayGeoIPDat",
+      "action": "add",
+      "args": {
+        "uri": "/tmp/geoip_source.dat",
+        "wantedList": ["private", "ru", "telegram", "ru-blocked"],
+        "onlyIPType": "ipv4"
+      }
+    }
+  ],
+  "output": [
+    {
+      "type": "v2rayGeoIPDat",
+      "action": "output",
+      "args": {
+        "outputDir": "/tmp/geoip_out",
+        "outputName": "geoip_rublocked.dat"
+      }
+    }
+  ]
+}
