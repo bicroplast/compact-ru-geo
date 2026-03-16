@@ -108,8 +108,9 @@ jobs:
 
       - name: Build geosite_ru.dat
         run: |
+          cd community
           # Скачивание списков
-          touch ./data/ru-blocked
+          #touch ./data/ru-blocked
           curl -sSLf $ANTIFILTER_DOWNLOAD_COMMUNITY > /tmp/antifilter-download-community.txt
           curl -sSLf $REFILTER_ALL > /tmp/refilter.txt
           echo "Building RU lists..."
