@@ -112,6 +112,13 @@ jobs:
           # Устанавливаем CLI инструмент v2fly/geoip
           go install github.com/v2fly/geoip@latest
 
+          for cfg in geoip_config.json geoip_private.json; do
+            if [ ! -f "${GITHUB_WORKSPACE}/$cfg" ]; then
+              echo "Файл $cfg не найден в репозитории!"
+              exit 1
+            fi
+          done
+
           mkdir -p /tmp/geoip_out
           geoip -c "${GITHUB_WORKSPACE}/geoip_config.json"
           geoip -c "${GITHUB_WORKSPACE}/geoip_private.json"
