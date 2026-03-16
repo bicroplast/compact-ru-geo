@@ -175,6 +175,8 @@ jobs:
         run: |
           cd publish
           sha256sum geosite.dat > geosite.dat.sha256sum
+          sha256sum geoip.dat > geoip.dat.sha256sum
+          sha256sum geoip_private.dat > geoip_private.dat.sha256sum
 
       - name: Release and upload assets
         env:
