@@ -52,18 +52,18 @@ jobs:
               (cd "$TARGET_DIR" && rm -f $pattern)
               find "$TARGET_DIR" -type f -exec sed -i "/include:$pattern\([[:space:]].*\|$\)/d" {} +
           done <<EOF
-          *-cn
-          *-!cn
-          *-porn
-          *-ir
-          *-jp
-          *-entertainment
-          *-scholar
-          *-pt
-          *-tm
-          *-companies
-          *-toshokan
-          EOF
+*-cn
+*-!cn
+*-porn
+*-ir
+*-jp
+*-entertainment
+*-scholar
+*-pt
+*-tm
+*-companies
+*-toshokan
+EOF
 
           # 3. Удаление цифровых файлов и ссылок на них
           cd "$TARGET_DIR"
