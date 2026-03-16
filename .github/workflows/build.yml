@@ -106,17 +106,16 @@ jobs:
           cp dlc.dat ../publish/geosite.dat
           cp /tmp/geosite_tags.txt ../publish/geosite_tags.txt
 
-      - name: Build geosite_ru.dat
+      - name: Build geosite_rublocked.dat
         run: |
           cd community
           # Скачивание списков
-          #touch ./data/ru-blocked
           curl -sSLf $ANTIFILTER_DOWNLOAD_COMMUNITY > /tmp/antifilter-download-community.txt
           curl -sSLf $REFILTER_ALL > /tmp/refilter.txt
           echo "Building RU lists..."
           cat /tmp/antifilter-download-community.txt /tmp/refilter.txt | sort --ignore-case -u > ./data/ru-blocked
           go run ./
-          cp dlc.dat ../publish/geosite_ru.dat
+          cp dlc.dat ../publish/geosite_rublocked.dat
 
       - name: Build geoip.dat
         run: |
@@ -146,6 +145,7 @@ jobs:
         run: |
           cd publish
           sha256sum geosite.dat > geosite.dat.sha256sum
+          sha256sum geosite_rublocked.dat > geosite_rublocked.dat.sha256sum
           sha256sum geoip.dat > geoip.dat.sha256sum
           sha256sum geoip_private.dat > geoip_private.dat.sha256sum
           sha256sum geoip_rublocked.dat > geoip_rublocked.dat.sha256sum
