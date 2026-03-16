@@ -47,13 +47,18 @@ jobs:
           TARGET_DIR="./community/data"
 
           # 2. Очистка по шаблонам
+          GEOLIST_PATTERNS="${GITHUB_WORKSPACE}/geolist_patterns.txt"
+          if [ ! -f "$GEOLIST_PATTERNS" ]; then
+            echo "Файл geolist_patterns.txt не найден в репозитории!"
+            exit 1
+          fi
           while read -r pattern; do
               [ -z "$pattern" ] && continue
               [[ "$pattern" == \#* ]] && continue
               echo "Обработка шаблона: $pattern"
               (cd "$TARGET_DIR" && rm -f $pattern)
               find "$TARGET_DIR" -type f -exec sed -i "/include:$pattern\([[:space:]].*\|$\)/d" {} +
-          done < "${GITHUB_WORKSPACE}/geolist_patterns.txt"
+          done < "$GEOLIST_PATTERNS"
 
           # 3. Удаление цифровых файлов и ссылок на них
           cd "$TARGET_DIR"
@@ -67,7 +72,6 @@ jobs:
             echo "Файл geolist_del.txt не найден в репозитории!"
             exit 1
           fi
-
           echo "Удаление файлов и вхождений по списку geolist_del"
           while read -r pattern; do
               [ -z "$pattern" ] && continue          # пропускаем пустые строки
