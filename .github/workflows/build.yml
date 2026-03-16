@@ -45,25 +45,15 @@ jobs:
           curl -sSLf $WIN_EXTRA | grep "0.0.0.0" | awk '{print $2}' > ./community/data/win-extra
 
           TARGET_DIR="./community/data"
-          
+
           # 2. Очистка по шаблонам
           while read -r pattern; do
+              [ -z "$pattern" ] && continue
+              [[ "$pattern" == \#* ]] && continue
               echo "Обработка шаблона: $pattern"
               (cd "$TARGET_DIR" && rm -f $pattern)
               find "$TARGET_DIR" -type f -exec sed -i "/include:$pattern\([[:space:]].*\|$\)/d" {} +
-          done <<EOF
-*-cn
-*-!cn
-*-porn
-*-ir
-*-jp
-*-entertainment
-*-scholar
-*-pt
-*-tm
-*-companies
-*-toshokan
-EOF
+          done < "${GITHUB_WORKSPACE}/geolist_patterns.txt"
 
           # 3. Удаление цифровых файлов и ссылок на них
           cd "$TARGET_DIR"
