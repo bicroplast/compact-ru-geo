@@ -24,7 +24,7 @@ jobs:
       - name: Set variables
         run: |
           echo "TAG_NAME=$(TZ='Europe/Moscow' date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          echo "RELEASE_NAME=Released on $(TZ='Europe/Moscow' date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "RELEASE_NAME=Released on $(TZ='Europe/Moscow' date +%Y-%m-%d %H:%M)" >> $GITHUB_ENV
           echo "WIN_UPDATE=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/update.txt" >> $GITHUB_ENV
           echo "WIN_EXTRA=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/extra.txt" >> $GITHUB_ENV
           echo "ANTIFILTER_DOWNLOAD_COMMUNITY=https://community.antifilter.download/list/domains.lst" >> $GITHUB_ENV
