@@ -24,9 +24,8 @@ jobs:
       - name: Set variables
         run: |
           # Устанавливаем временную зону для текущего шага
-          export TZ="Europe/Moscow"
-          echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "TAG_NAME=$(TZ='Europe/Moscow' date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "RELEASE_NAME=Released on $(TZ='Europe/Moscow' date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "WIN_UPDATE=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/update.txt" >> $GITHUB_ENV
           echo "WIN_EXTRA=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/extra.txt" >> $GITHUB_ENV
         shell: bash
@@ -87,10 +86,9 @@ jobs:
               rm -f "$pattern"
           done < "$GEOLIST_DEL"
 
-          # 4. Очистка зависимостей
+          # 5. Очистка зависимостей
           # Составляем список всех файлов, которые реально остались в папке
           ls -1 > /tmp/geosite_tags.txt
-
           # Проходим по всем оставшимся файлам
           for file in *; do
               [ -f "$file" ] || continue
@@ -141,9 +139,9 @@ jobs:
           git push -f -u origin release
           
       - name: Delete old releases
-        uses: dev-drprasad/delete-older-releases@v0.3.3
-        with:
-          keep_latest: 3
-          delete_tags: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release list --limit 100 --json tagName,createdAt \
+            | jq -r 'sort_by(.createdAt) | reverse | .[3:] | .[].tagName' \
+            | xargs -I {} gh release delete {} --yes --delete-tag
+          env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
