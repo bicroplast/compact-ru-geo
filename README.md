@@ -6,7 +6,7 @@ https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite.dat
 https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite_tags.txt
 <br><br>
 https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geoip.dat
-<br>В файле только теги "private", "ru", "telegram", и только ipv4 адреса!
+<br>В файле только ipv4 теги "private", "ru", "telegram".
 <br><br>
 https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geoip_private.dat
-<br>В файле только ipv4 тег "private"
+<br>В файле только ipv4 тег "private".
