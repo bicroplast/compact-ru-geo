@@ -97,6 +97,29 @@ jobs:
               done
           done
 
+          # 6. Итеративная очистка: удаляем пустые файлы и битые зависимости
+          # пока есть изменения
+          while true; do
+              # Удаляем пустые файлы
+              DELETED=$(find . -type f -empty -print -delete)
+              [ -z "$DELETED" ] && break
+              echo "Удалены пустые файлы: $DELETED"
+
+              # Обновляем список файлов
+              ls -1 > /tmp/geosite_tags.txt
+
+              # Чистим битые зависимости
+              for file in *; do
+                  [ -f "$file" ] || continue
+                  grep "include:" "$file" | cut -d':' -f2 | awk '{print $1}' | sort -u | while read -r included; do
+                      if ! grep -qx "$included" /tmp/geosite_tags.txt; then
+                          echo "Removing broken include:$included from $file"
+                          sed -i "/include:$included\([[:space:]].*\|$\)/d" "$file"
+                      fi
+                  done
+              done
+          done
+
       - name: Build geosite.dat
         run: |
           cd community
