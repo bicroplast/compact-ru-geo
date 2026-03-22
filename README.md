@@ -1,7 +1,7 @@
 Geosite и GeoIP базы вычищенные от CN, ирана, и многих иных тегов, включая adblock<br>
 Последние версии по ссылкам:<br>
-**geosite** https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite.dat<br>
-**geoip**  https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geoip.dat
+**geoip**  https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geoip.dat<br>
+**geosite** https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite.dat
 ##
 Список тегов **geosite.dat**:<br>
 https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite_tags.txt
