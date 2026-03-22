@@ -17,8 +17,5 @@ https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite_rubl
 https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geoip_rublocked.dat
 <br><br>
 
-<br>Версия с добавленым тегом "ru-blocked":<br>
-
-<br><br>
+Версия **geoip** только ipv4 и тег **privat**.<br>
 https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geoip_private.dat
-<br>В файле только ipv4 тег "private".
