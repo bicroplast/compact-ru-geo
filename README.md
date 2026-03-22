@@ -15,3 +15,4 @@ https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geoip_rubloc
 
 Версия **geoip** только ipv4 и тег **private**.<br>
 https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geoip_private.dat
+
