@@ -1,14 +1,15 @@
 name: build.yml
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "45 14 * * *"
+    - cron: "49 22 */2 * *"
   push:
     branches:
       - main
     paths-ignore:
       - "**/README.md"
-  schedule:
-    - cron: "35 14 * * *"
-    - cron: "49 22 */2 * *"
+
 jobs:
   build:
     runs-on: ubuntu-latest
