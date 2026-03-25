@@ -9,7 +9,7 @@ https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite_tags
 <br>В файле **geoip.dat** только ipv4 и теги: "private", "ru", "telegram".<br>
 ##
 Версии с добавленым тегом **ru-blocked**:<br>
-https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite_rublocked.dat
+https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite_rublocked.dat<br>
 https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geoip_rublocked.dat
 <br><br>
 
