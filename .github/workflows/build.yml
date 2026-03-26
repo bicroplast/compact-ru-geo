@@ -10,7 +10,7 @@ on:
     paths-ignore:
       - "**/README.md"
       - "**/whitelist.txt"
-      - "**/ipwhitelist.txt"
+      - "**/cidrwhitelist.txt"
       - "**/*.json"
 
 jobs:
