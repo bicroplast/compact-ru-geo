@@ -1,4 +1,4 @@
-Geosite и GeoIP базы вычищенные от CN, ирана, и многих иных тегов, включая adblock, но с добавлением тега **whitelist** согласно данным с репо https://github.com/hxehex/russia-mobile-internet-whitelist/<br>
+Geosite и GeoIP базы вычищенные от CN, ирана, и многих иных тегов, включая adblock, но с добавлением тега **whitelist** согласно данным репозитория https://github.com/hxehex/russia-mobile-internet-whitelist/<br>
 Последние версии по ссылкам:<br>
 **geoip**  https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geoip.dat<br>
 **geosite** https://raw.githubusercontent.com/bicroplast/compact-ru-geo/release/geosite.dat
