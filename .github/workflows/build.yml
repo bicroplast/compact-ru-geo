@@ -1,6 +1,6 @@
 name: build.yml
 on:
-  workflow_dispatch:
+  #workflow_dispatch:
   schedule:
     - cron: "22 11 1-31/2 * *"
     - cron: "44 22 2-30/2 * *"
@@ -156,15 +156,15 @@ jobs:
           # Скачиваем исходный geoip.dat
           curl -sSLf https://raw.githubusercontent.com/runetfreedom/russia-blocked-geoip/release/geoip.dat -o /tmp/geoip_source.dat
           
-          # Скачиваем ipwhitelist.txt
-          curl -sSLf "https://raw.githubusercontent.com/hxehex/russia-mobile-internet-whitelist/main/ipwhitelist.txt" -o /tmp/ipwhitelist_new.txt
-          if [ -s /tmp/ipwhitelist_new.txt ]; then
-            cp /tmp/ipwhitelist_new.txt "${GITHUB_WORKSPACE}/ipwhitelist.txt"
-            echo "ipwhitelist обновлён"
+          # Скачиваем cidrwhitelist.txt
+          curl -sSLf "https://raw.githubusercontent.com/hxehex/russia-mobile-internet-whitelist/main/cidrwhitelist.txt" -o /tmp/cidrwhitelist_new.txt
+          if [ -s /tmp/cidrwhitelist_new.txt ]; then
+            cp /tmp/cidrwhitelist_new.txt "${GITHUB_WORKSPACE}/cidrwhitelist.txt"
+            echo "cidrwhitelist обновлён"
           else
             echo "Скачанный файл пустой, используем локальную версию"
           fi
-          cp "${GITHUB_WORKSPACE}/ipwhitelist.txt" /tmp/ipwhitelist.txt
+          cp "${GITHUB_WORKSPACE}/cidrwhitelist.txt" /tmp/cidrwhitelist.txt
           
           # Устанавливаем CLI инструмент v2fly/geoip
           go install github.com/v2fly/geoip@latest
