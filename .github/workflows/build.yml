@@ -9,6 +9,9 @@ on:
       - main
     paths-ignore:
       - "**/README.md"
+      - "**/whitelist.txt"
+      - "**/ipwhitelist.txt"
+      - "**/*.json"
 
 jobs:
   build:
@@ -184,6 +187,14 @@ jobs:
           cp /tmp/geoip_out/geoip.dat publish/geoip.dat
           cp /tmp/geoip_out/geoip_private.dat publish/geoip_private.dat
           cp /tmp/geoip_out/geoip_rublocked.dat publish/geoip_rublocked.dat
+
+      - name: Commit updated whitelists
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add whitelist.txt cidrwhitelist.txt
+          git diff --staged --quiet || git commit -m "chore: update whitelists"
+          git push
 
       - name: Generate Checksum
         run: |
