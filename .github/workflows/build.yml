@@ -46,6 +46,16 @@ jobs:
           # 1. Скачивание списков Windows
           curl -sSLf $WIN_UPDATE | grep "0.0.0.0" | awk '{print $2}' > ./community/data/win-update
           curl -sSLf $WIN_EXTRA | grep "0.0.0.0" | awk '{print $2}' > ./community/data/win-extra
+          
+          # Обновление whitelist
+          curl -sSLf "https://raw.githubusercontent.com/hxehex/russia-mobile-internet-whitelist/main/whitelist.txt" -o /tmp/whitelist.txt
+          if [ -s /tmp/whitelist.txt ]; then
+            cp /tmp/whitelist.txt "${GITHUB_WORKSPACE}/whitelist.txt"
+            echo "Whitelist обновлён"
+          else
+            echo "Скачанный файл пустой, используем локальную версию"
+          fi
+          cp "${GITHUB_WORKSPACE}/whitelist.txt" "./community/data/whitelist"
 
           TARGET_DIR="./community/data"
 
