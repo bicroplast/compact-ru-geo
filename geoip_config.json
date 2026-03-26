@@ -13,7 +13,7 @@
       "type": "text",
       "action": "add",
       "args": {
-        "uri": "/tmp/ipwhitelist.txt",
+        "uri": "/tmp/cidrwhitelist.txt",
         "onlyIPType": "ipv4",
         "name": "whitelist"
       }
