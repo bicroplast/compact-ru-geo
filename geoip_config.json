@@ -8,6 +8,16 @@
         "wantedList": ["private", "ru"],
         "onlyIPType": "ipv4"
       }
+    },
+    {
+      "type": "text",
+      "action": "add",
+      "args": {
+        "uri": "/tmp/ipwhitelist.txt",
+        "ipOrCIDR": true,
+        "onlyIPType": "ipv4",
+        "name": "whitelist"
+      }
     }
   ],
   "output": [
