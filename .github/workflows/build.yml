@@ -192,8 +192,7 @@ jobs:
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add whitelist.txt cidrwhitelist.txt
-          # git diff --staged --quiet || 
+          git add whitelist.txt ipwhitelist.txt
           git commit -m "chore: update whitelists"
           git push
 
