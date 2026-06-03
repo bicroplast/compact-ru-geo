@@ -5,7 +5,15 @@
       "action": "add",
       "args": {
         "uri": "/tmp/geoip_source.dat",
-        "wantedList": ["private", "ru", "telegram", "ru-blocked"],
+        "wantedList": ["private"]
+      }
+    },
+    {
+      "type": "v2rayGeoIPDat",
+      "action": "add",
+      "args": {
+        "uri": "/tmp/geoip_source.dat",
+        "wantedList": ["ru", "telegram", "ru-blocked"],
         "onlyIPType": "ipv4"
       }
     },
@@ -27,15 +35,6 @@
       }
     },
     {
-      "type": "v2rayGeoIPDat",
-      "action": "add",
-      "args": {
-        "uri": "/tmp/geoip_source.dat",
-        "wantedList": ["private"],
-        "onlyIPType": "ipv6"
-      }
-    },
-    {
       "type": "text",
       "action": "add",
       "args": {
@@ -48,7 +47,7 @@
       "action": "add",
       "args": {
         "uri": "/tmp/ipv6_stub.txt",
-        "name": "whitelist"
+        "name": "ru-blocked"
       }
     },
     {
@@ -56,7 +55,7 @@
       "action": "add",
       "args": {
         "uri": "/tmp/ipv6_stub.txt",
-        "name": "ru-blocked"
+        "name": "whitelist"
       }
     }
   ],
