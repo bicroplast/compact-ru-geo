@@ -30,8 +30,9 @@
       "type": "text",
       "action": "add",
       "args": {
-        "uri": "/tmp/ipv6_stub.txt",
-        "name": "private"
+        "uri": "/tmp/geoip_source.dat",
+        "name": "private",
+        "onlyIPType": "ipv6"
       }
     },
     {
