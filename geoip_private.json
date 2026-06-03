@@ -5,8 +5,7 @@
       "action": "add",
       "args": {
         "uri": "/tmp/geoip_source.dat",
-        "wantedList": ["private"],
-        "onlyIPType": "ipv4"
+        "wantedList": ["private"]
       }
     }
   ],
