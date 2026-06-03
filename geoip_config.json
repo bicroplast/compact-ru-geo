@@ -31,7 +31,7 @@
       "action": "add",
       "args": {
         "uri": "/tmp/geoip_source.dat",
-        "name": "private",
+        "wantedList": ["private"],
         "onlyIPType": "ipv6"
       }
     },
