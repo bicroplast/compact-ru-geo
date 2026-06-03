@@ -17,6 +17,47 @@
         "onlyIPType": "ipv4",
         "name": "whitelist"
       }
+    },
+    {
+      "type": "text",
+      "action": "add",
+      "args": {
+        "uri": "/tmp/ipv6_stub.txt",
+        "name": "ru"
+      }
+    },
+    {
+      "type": "v2rayGeoIPDat",
+      "action": "add",
+      "args": {
+        "uri": "/tmp/geoip_source.dat",
+        "wantedList": ["private"],
+        "onlyIPType": "ipv6"
+      }
+    },
+    {
+      "type": "text",
+      "action": "add",
+      "args": {
+        "uri": "/tmp/ipv6_stub.txt",
+        "name": "telegram"
+      }
+    },
+    {
+      "type": "text",
+      "action": "add",
+      "args": {
+        "uri": "/tmp/ipv6_stub.txt",
+        "name": "whitelist"
+      }
+    },
+    {
+      "type": "text",
+      "action": "add",
+      "args": {
+        "uri": "/tmp/ipv6_stub.txt",
+        "name": "ru-blocked"
+      }
     }
   ],
   "output": [
