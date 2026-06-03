@@ -17,6 +17,30 @@
         "onlyIPType": "ipv4",
         "name": "whitelist"
       }
+    },
+    {
+      "type": "text",
+      "action": "add",
+      "args": {
+        "uri": "${GITHUB_WORKSPACE}/ipv6_stub.txt",
+        "name": "ru"
+      }
+    },
+    {
+      "type": "text",
+      "action": "add",
+      "args": {
+        "uri": "${GITHUB_WORKSPACE}/ipv6_stub.txt",
+        "name": "private"
+      }
+    },
+    {
+      "type": "text",
+      "action": "add",
+      "args": {
+        "uri": "${GITHUB_WORKSPACE}/ipv6_stub.txt",
+        "name": "whitelist"
+      }
     }
   ],
   "output": [
