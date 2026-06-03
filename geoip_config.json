@@ -5,7 +5,15 @@
       "action": "add",
       "args": {
         "uri": "/tmp/geoip_source.dat",
-        "wantedList": ["private", "ru"],
+        "wantedList": ["private"]
+      }
+    },
+    {
+      "type": "v2rayGeoIPDat",
+      "action": "add",
+      "args": {
+        "uri": "/tmp/geoip_source.dat",
+        "wantedList": ["ru"],
         "onlyIPType": "ipv4"
       }
     },
@@ -24,15 +32,6 @@
       "args": {
         "uri": "/tmp/ipv6_stub.txt",
         "name": "ru"
-      }
-    },
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "add",
-      "args": {
-        "uri": "/tmp/geoip_source.dat",
-        "wantedList": ["private"],
-        "onlyIPType": "ipv6"
       }
     },
     {
