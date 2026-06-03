@@ -178,6 +178,8 @@ jobs:
               exit 1
             fi
           done
+          # Создаём stub файл для IPv6
+          echo "2001:db8::1/128" > /tmp/ipv6_stub.txt
 
           mkdir -p /tmp/geoip_out
           geoip -c "${GITHUB_WORKSPACE}/geoip_config.json"
