@@ -27,7 +27,7 @@
       }
     },
     {
-      "type": "text",
+      "type": "v2rayGeoIPDat",
       "action": "add",
       "args": {
         "uri": "/tmp/geoip_source.dat",
